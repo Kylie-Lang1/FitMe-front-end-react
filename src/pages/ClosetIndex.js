@@ -1,4 +1,3 @@
-import SearchBar from '../components/SearchBar';
 import ClothingCards from '../components/ClothingCards';
 
 function ClosetIndex() {

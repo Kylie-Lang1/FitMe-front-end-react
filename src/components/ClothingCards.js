@@ -9,9 +9,7 @@ function ClothingCards() {
     const [allClothes, setAllClothes] = useState([]);
     const [shownClothes, setShownClothes] = useState([]);
     const [filteredClothes, setFilteredClothes] = useState([])
-    const [search, setSearch] = useState("")
-    const [filter, setFilter] = useState("")
-    
+    const [search, setSearch] = useState("")    
 
     useEffect(() => {
         axios
@@ -42,9 +40,11 @@ function ClothingCards() {
             setShownClothes(selectedClothes)
             setFilteredClothes(selectedClothes)
         }
+        setSearch("")
     }
 
     const handleTextChange = (e) => {
+        setSearch(e.target.value)
         const input = e.target.value;
         console.log("typed: " + e.target.value)
         handleSearch(input)
@@ -54,7 +54,7 @@ function ClothingCards() {
     const handleSearch = (input) => {
         console.log("searched: " + input)
 
-        input === "" ? setShownClothes() 
+        input === "" ? setShownClothes(filteredClothes) 
         : setShownClothes(filteredClothes.filter((item) => {
             return item.name.toLowerCase().includes(input.toLowerCase()) || item.brand.toLowerCase().includes(input.toLowerCase())
         }))
@@ -82,6 +82,7 @@ function ClothingCards() {
                     Search:
                     <input 
                         type="text" 
+                        value={search}
                         onChange={handleTextChange}
                         className='border-blue-800 border-solid border rounded-md px-2 mx-2'
                     />
