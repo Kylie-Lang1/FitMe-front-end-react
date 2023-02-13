@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -14,6 +14,7 @@ function ClothesNewForm() {
         img_url: "",
         shop_url: "",
         is_favorite: false,
+        is_owned: false,
         is_selected: false
     });
 
@@ -22,19 +23,27 @@ function ClothesNewForm() {
             ...newClothes,
             [e.target.name]: e.target.value
         });
-            console.log(newClothes)
+    };
 
-    //     if(newClothes.is_favorite === "on") {
-    //         setNewClothes({
-    //             ...newClothes,
-    //             is_favorite: true
-    //         });
-    //     } else {
-    //         setNewClothes({
-    //             ...newClothes,
-    //             is_favorite: false
-    //         });
-    //    };
+    const handleRadio = (e) => {
+        if (e.target.value === "true") {
+            setNewClothes({
+                ...newClothes,
+                [e.target.name]: true
+            })
+        } else if (e.target.value === "false") {
+            setNewClothes({
+                ...newClothes,
+                [e.target.name]: false
+            })
+        }
+    };
+
+    const handleFavorite = (e) => {
+        setNewClothes({
+            ...newClothes,
+            is_favorite: !newClothes.is_favorite
+        });
     };
 
     const handleSubmit = (e) => {
@@ -47,10 +56,10 @@ function ClothesNewForm() {
     };
 
     return (
-        <div className="flex">
+        <div className="flex justify-center space-x-10">
             <form 
                 onSubmit={handleSubmit}
-                className="flex flex-col m-auto w-96 px-20 bg-slate-200"
+                className="flex flex-col w-96 px-20 bg-slate-200"
             >
                 <label htmlFor="name">
                     Name:
@@ -85,6 +94,7 @@ function ClothesNewForm() {
                     <option value="dress">Dress</option>
                     <option value="shoes">Shoes</option>
                     <option value="outer_wear">Outer Wear</option>
+                    <option value="hat">Hat</option>
                     <option value="accessory">Accessory</option>
                     <option value="other">Other</option>
                 </select>
@@ -108,12 +118,38 @@ function ClothesNewForm() {
                     onChange={handleChange}
                 />
 
+                <label htmlFor="is_owned">
+                    Owned by Me:
+                    <label>
+                        <input
+                            type="radio"
+                            name="is_owned"
+                            value="true"
+                            onChange={handleRadio}
+                            className="ml-4 mr-1"
+                            required
+                        />
+                        Yes
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="is_owned"
+                            value="false"
+                            onChange={handleRadio}
+                            className="ml-4 mr-1"
+                            required
+                        />
+                        No
+                    </label>
+                </label>
+
                 <label htmlFor="is_favorite" className="py-3">
                     Favorite:
                     <input 
                         type="checkbox" 
                         name="is_favorite" 
-                        onChange={handleChange}
+                        onClick={handleFavorite}
                         className="mx-3" 
                     />
                 </label>
@@ -123,13 +159,17 @@ function ClothesNewForm() {
                 <button onClick={() => navigate(`/closet`)}>Cancel</button>
             </form>
                 {/* <button className="justify-items-center">Add another item</button> */}
-            <div className="float-right">
+            <div className="">
+                <p className="my-5">Please review image to be added</p>
                 {
                     newClothes.img_url ?
-                        <img src={newClothes.img_url} alt={newClothes.img_url} />
-                        :   <img src="https://via.placeholder.com/150" alt="placeholder" />
+                        <img 
+                            src={newClothes.img_url} 
+                            alt={newClothes.img_url} 
+                            className="w-64 h-64 object-cover"
+                        /> :
+                            <img src="https://via.placeholder.com/250" alt="placeholder" />
                 }
-                <p>Please review image to be added</p>
             </div>
         </div>
     );

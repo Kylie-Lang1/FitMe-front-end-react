@@ -11,7 +11,6 @@ function ClothesEditForm({ clothes, setClothes, setEditForm}) {
             ...clothes,
             [e.target.name]: e.target.value
         });
-        console.log(clothes)
     };
 
     const handleFavorite = (e) => {
@@ -19,7 +18,20 @@ function ClothesEditForm({ clothes, setClothes, setEditForm}) {
             ...clothes,
             is_favorite: !clothes.is_favorite
         });
-        console.log(clothes)
+    };
+
+    const handleRadio = (e) => {
+        if (e.target.value === "true") {
+            setClothes({
+                ...clothes,
+                [e.target.name]: true
+            })
+        } else if (e.target.value === "false") {
+            setClothes({
+                ...clothes,
+                [e.target.name]: false
+            })
+        }
     };
 
     const handleSubmit = (e) => {
@@ -35,11 +47,11 @@ function ClothesEditForm({ clothes, setClothes, setEditForm}) {
     };
 
     return (
-        <>
-            <div className="flex">
+        <div className='w-full fixed top-28 left-0 flex justify-center'>
+            <div className="flex justify-center space-x-10 pr-20 bg-slate-200">
                 <form 
                     onSubmit={handleSubmit}
-                    className="flex flex-col m-auto w-96 px-20 bg-slate-200"
+                    className="flex flex-col w-96 px-20 py-10"
                 >
                     <label htmlFor="name">
                         Name:
@@ -75,8 +87,9 @@ function ClothesEditForm({ clothes, setClothes, setEditForm}) {
                         <option value="top">Top</option>
                         <option value="bottom">Bottom</option>
                         <option value="dress">Dress</option>
-                        <option value="shoes">Shoes</option>
+                        <option value="Shoes">Shoes</option>
                         <option value="outer_wear">Outer Wear</option>
+                        <option value="hat">Hat</option>
                         <option value="accessory">Accessory</option>
                         <option value="other">Other</option>
                     </select>
@@ -102,6 +115,34 @@ function ClothesEditForm({ clothes, setClothes, setEditForm}) {
                         onChange={handleChange}
                     />
 
+                    <label htmlFor="is_owned">
+                        Owned by Me:
+                        <label>
+                            <input
+                                type="radio"
+                                name="is_owned"
+                                value="true"
+                                checked={clothes.is_owned ? true : false}
+                                onChange={handleRadio}
+                                className="ml-4 mr-1"
+                                required
+                            />
+                            Yes
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="is_owned"
+                                value="false"
+                                checked={clothes.is_owned ? false : true}
+                                onChange={handleRadio}
+                                className="ml-4 mr-1"
+                                required
+                            />
+                            No
+                        </label>
+                    </label>
+
                     <label htmlFor="is_favorite" className="py-3">
                         Favorite:
                         <input 
@@ -119,16 +160,20 @@ function ClothesEditForm({ clothes, setClothes, setEditForm}) {
                     <button onClick={() => setEditForm(false)}>Cancel</button>
                 </form>
                 {/* <button className="justify-items-center">Add another item</button> */}
-            <div className="float-right">
-                {
-                    clothes.img_url ?
-                        <img src={clothes.img_url} alt={clothes.img_url} />
-                        :   <img src="https://via.placeholder.com/150" alt="placeholder" />
-                }
-                <p>Please review image to be added</p>
-            </div>
+                <div>
+                    <p className='text-center py-10'>Please review image to be added</p>
+                    {
+                        clothes.img_url ?
+                            <img 
+                                src={clothes.img_url} 
+                                alt={clothes.img_url} 
+                                className="w-64 h-64 object-cover"
+                            />
+                            :   <img src="https://via.placeholder.com/150" alt="placeholder" />
+                    }
+                </div>
+           </div>
         </div>
-    </>
     );
 }
 
