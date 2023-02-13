@@ -8,8 +8,9 @@ const API = process.env.REACT_APP_API_URL;
 function ClothingCards() {
     const [allClothes, setAllClothes] = useState([]);
     const [shownClothes, setShownClothes] = useState([]);
-    const [filteredClothes, setFilteredClothes] = useState([])
-    const [search, setSearch] = useState("")    
+    const [filteredClothes, setFilteredClothes] = useState([]);
+    const [search, setSearch] = useState("");
+    const [createOutfit, setCreateOutfit] = useState(false); 
 
     useEffect(() => {
         axios
@@ -60,6 +61,26 @@ function ClothingCards() {
         }))
     }
 
+    const handleCreateOutfit = () => {
+        setCreateOutfit(!createOutfit)
+    }
+
+    // const handleCreateOutfit = () => {
+    //     const selectedClothes = allClothes.filter((item) => {
+    //         return item.is_selected === true
+    //     })
+    //     const selectedClothesIds = selectedClothes.map((item) => {
+    //         return item.id
+    //     })
+    //     axios
+    //     .post(`${API}/outfits`, {clothes: selectedClothesIds})
+    //     .then((res) => {
+    //         console.log(res.data)
+    //         window.location.href = `/outfits/${res.data.id}`
+    //     })
+    //     .catch((c) => console.warn("catch, c"));
+    // }
+
     return (
         <>
             <div className='pb-5'>
@@ -88,8 +109,25 @@ function ClothingCards() {
                     />
                     <button onClick={() => setSearch("")}>Clear Search</button>
                 </label>
+                <button
+                    onClick={handleCreateOutfit}
+                    className="bg-slate-200 border border-black border-solid rounded px-2"
+                >
+                    Create Outfit
+                </button>
+                <button
+                    onClick={() => setCreateOutfit(false)}
+                    className={'bg-slate-200 border border-black border-solid rounded px-2 ml-3 ' + `${createOutfit ? "inline" : "hidden"}`}
+                >
+                    Cancel
+                </button>
+                <p
+                className={createOutfit ? "inline ml-5" : "hidden"}
+                >
+                    Select items of clothing you would like to add
+                </p>
             </div>
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap my-8'>
                     <div className="w-64 h-64 bg-gray-300 px-20 mx-10 mb-10">
                         <Link to='/closet/new'>
                             <div>
@@ -102,13 +140,12 @@ function ClothingCards() {
                         shownClothes &&
                         shownClothes.map((item) => {
                             return (
-                                <Link to={`/closet/${item.id}`}>
-                                    <ClothingCard 
-                                        key={item.id}
-                                        id={item.id}
-                                        clothes={item}                                        
-                                    />
-                                </Link>
+                                <ClothingCard 
+                                    key={item.id}
+                                    id={item.id}
+                                    clothes={item}
+                                    createOutfit={createOutfit}                                        
+                                />
                             )
                         }) 
                     }
