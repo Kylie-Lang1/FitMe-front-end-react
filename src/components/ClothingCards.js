@@ -5,12 +5,14 @@ import ClothingCard from "./ClothingCard";
 
 const API = process.env.REACT_APP_API_URL;
 
-function ClothingCards() {
+function ClothingCards({ isFavorite }) {
     const [allClothes, setAllClothes] = useState([]);
     const [shownClothes, setShownClothes] = useState([]);
     const [filteredClothes, setFilteredClothes] = useState([]);
     const [search, setSearch] = useState("");
     const [createOutfit, setCreateOutfit] = useState(false); 
+    
+    const [isSelected, setIsSelected] = useState(false);
 
     useEffect(() => {
         axios
@@ -127,6 +129,7 @@ function ClothingCards() {
                     Select items of clothing you would like to add
                 </p>
             </div>
+            <div>
                 <div className='flex flex-wrap my-8'>
                     <div className="w-64 h-64 bg-gray-300 px-20 mx-10 mb-10">
                         <Link to='/closet/new'>
@@ -144,12 +147,15 @@ function ClothingCards() {
                                     key={item.id}
                                     id={item.id}
                                     clothes={item}
-                                    createOutfit={createOutfit}                                        
+                                    createOutfit={createOutfit}
+                                    isSelected={isSelected}
+                                    setIsSelected={setIsSelected}
                                 />
                             )
                         }) 
                     }
                 </div>
+            </div>
         </>
     );
 }
