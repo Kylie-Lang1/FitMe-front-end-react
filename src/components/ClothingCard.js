@@ -2,22 +2,44 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function ClothingCard({clothes, id, createOutfit, isSelected, setIsSelected}) {
-    const unselected = "border-none"
-    const selected = "border-2 border-gray-500 drop-shadow-lg"
+    const unselectedStyle = "border-none"
+    const selectedStyle = "border-2 border-gray-500 drop-shadow-lg"
     
     const [thisItem, setThisItem] = useState({});
-    const [style, setStyle] = useState(unselected);
-
+    const [style, setStyle] = useState(unselectedStyle);
+    
     const handleSelect = () => {
         const copyClothes = clothes
         copyClothes.is_selected = !copyClothes.is_selected
+        
+        style === unselectedStyle ? setStyle(selectedStyle) : setStyle(unselectedStyle)
+        
+        // copyClothes.is_selected === true ? (
+        //     setStyle(selected)
+        //     if(!isSelected.includes(clothes)){
+        //         setIsSelected([...isSelected, clothes])
+        //     }
+        // ) : (
+        //     setStyle(unselected)
+        //     if(isSelected.includes(clothes)){
+        //         setIsSelected(isSelected.filter((item) => {
+        //             return item !== clothes
+        //         }))
+        //     }
+        // )
 
-        style === unselected ? setStyle(selected) : setStyle(unselected)
+        if(copyClothes.is_selected === true){
+            setStyle(selectedStyle)
+            setIsSelected([...isSelected, clothes])
+        } else {
+            setStyle(unselectedStyle)
+            setIsSelected(isSelected.filter((item) => {
+                return item !== clothes
+            }))
+        }
 
-        // const newClothes = {is_selected: !clothes.is_selected, ...clothes}
-
-        setThisItem(copyClothes)
-        console.log(thisItem)
+        console.log(isSelected)
+        console.log(style)
         console.log(copyClothes)
     }
 

@@ -12,7 +12,8 @@ function ClothingCards({ isFavorite }) {
     const [search, setSearch] = useState("");
     const [createOutfit, setCreateOutfit] = useState(false); 
     
-    const [isSelected, setIsSelected] = useState(false);
+    const [isSelected, setIsSelected] = useState([]);
+    console.log(isSelected)
 
     useEffect(() => {
         axios
@@ -129,7 +130,7 @@ function ClothingCards({ isFavorite }) {
                     Select items of clothing you would like to add
                 </p>
             </div>
-            <div>
+            <div className="flex">
                 <div className='flex flex-wrap my-8'>
                     <div className="w-64 h-64 bg-gray-300 px-20 mx-10 mb-10">
                         <Link to='/closet/new'>
@@ -154,6 +155,35 @@ function ClothingCards({ isFavorite }) {
                             )
                         }) 
                     }
+                </div>
+                <div>
+                    <div className="flex flex-col w-64 right-0">
+                        {
+                            isSelected.length > 0 ?
+                            isSelected.map((item) => {
+                                return (
+                                    <div 
+                                    key={item.id}
+                                    className='flex items-center pb-2'
+                                    >
+                                            <img 
+                                                src={item.img_url} 
+                                                alt={item.name} 
+                                                className='w-40 h-40 object-scale-down'
+                                                />
+                                            <button 
+                                                onClick={() => setIsSelected(isSelected.filter((each) => {
+                                                    return each !== item
+                                                }))}
+                                                className='bg-red-400 text-white border border-red-500 border-solid rounded px-1 ml-3'
+                                                >X</button>
+                                        </div>
+                                    )
+                                }
+                                )
+                                : null
+                        }
+                        </div>
                 </div>
             </div>
         </>
