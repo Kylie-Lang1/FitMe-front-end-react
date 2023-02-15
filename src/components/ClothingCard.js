@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function ClothingCard({clothes, id, createOutfit, isSelected, setIsSelected}) {
+function ClothingCard({clothes, id, createOutfit, style, setStyle, isSelected, setIsSelected}) {
     const unselectedStyle = "border-none"
     const selectedStyle = "border-2 border-gray-500 drop-shadow-lg"
     
     const [thisItem, setThisItem] = useState({});
-    const [style, setStyle] = useState(unselectedStyle);
+    // const [style, setStyle] = useState("");
+    console.log(style)
     
     const handleSelect = () => {
         const copyClothes = clothes

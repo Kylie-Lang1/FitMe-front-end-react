@@ -13,6 +13,9 @@ function ClothingCards({ isFavorite }) {
     const [createOutfit, setCreateOutfit] = useState(false); 
     
     const [isSelected, setIsSelected] = useState([]);
+    const [style, setStyle] = useState("");
+    const unselectedStyle = "border-none"
+    const selectedStyle = "border-2 border-gray-500 drop-shadow-lg"
     console.log(isSelected)
 
     useEffect(() => {
@@ -119,7 +122,10 @@ function ClothingCards({ isFavorite }) {
                     Create Outfit
                 </button>
                 <button
-                    onClick={() => setCreateOutfit(false)}
+                    onClick={() => {
+                        setCreateOutfit(false)
+                        setIsSelected([])
+                    }}
                     className={'bg-slate-200 border border-black border-solid rounded px-2 ml-3 ' + `${createOutfit ? "inline" : "hidden"}`}
                 >
                     Cancel
@@ -143,6 +149,8 @@ function ClothingCards({ isFavorite }) {
                     {
                         shownClothes &&
                         shownClothes.map((item) => {
+                            if(isSelected.includes(item)){ 
+                                console.log(isSelected.includes(item))
                             return (
                                 <ClothingCard 
                                     key={item.id}
@@ -151,8 +159,23 @@ function ClothingCards({ isFavorite }) {
                                     createOutfit={createOutfit}
                                     isSelected={isSelected}
                                     setIsSelected={setIsSelected}
+                                    style={selectedStyle}
+                                    setStyle={setStyle}
                                 />
-                            )
+                            )} else {
+                                return (
+                                    <ClothingCard 
+                                        key={item.id}
+                                        id={item.id}
+                                        clothes={item}
+                                        createOutfit={createOutfit}
+                                        isSelected={isSelected}
+                                        setIsSelected={setIsSelected}
+                                        style={unselectedStyle}
+                                        setStyle={setStyle}
+                                    />
+                                )
+                            }
                         }) 
                     }
                 </div>
