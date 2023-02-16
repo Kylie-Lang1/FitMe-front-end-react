@@ -6,16 +6,24 @@ import ClothingCard from "./ClothingCard";
 const API = process.env.REACT_APP_API_URL;
 
 function ClothingCards({ isFavorite }) {
+    // State for rendering different clothing cards based on filter/search
     const [allClothes, setAllClothes] = useState([]);
     const [shownClothes, setShownClothes] = useState([]);
     const [filteredClothes, setFilteredClothes] = useState([]);
     const [search, setSearch] = useState("");
     const [createOutfit, setCreateOutfit] = useState(false); 
     
+    // State for toggling selected clothing items and corresponding styling
     const [isSelected, setIsSelected] = useState([]);
     const [style, setStyle] = useState("");
     const unselectedStyle = "border-none"
     const selectedStyle = "border-2 border-gray-500 drop-shadow-lg"
+
+    // State for saving outfit details
+    const [outfit, setOutfit] = useState({
+        name: "",
+        clothes: []
+    });
 
     useEffect(() => {
         axios
@@ -24,7 +32,6 @@ function ClothingCards({ isFavorite }) {
             setAllClothes(res.data);
             setShownClothes(res.data);
             setFilteredClothes(res.data)
-            console.log(res.data)
         })
         .catch((c) => console.warn("catch, c"));
     }, []);
@@ -52,13 +59,10 @@ function ClothingCards({ isFavorite }) {
     const handleTextChange = (e) => {
         setSearch(e.target.value)
         const input = e.target.value;
-        console.log("typed: " + e.target.value)
         handleSearch(input)
     }
     
     const handleSearch = (input) => {
-        console.log("searched: " + input)
-
         input === "" ? setShownClothes(filteredClothes) 
         : setShownClothes(filteredClothes.filter((item) => {
             return item.name.toLowerCase().includes(input.toLowerCase()) || item.brand.toLowerCase().includes(input.toLowerCase())
@@ -66,7 +70,7 @@ function ClothingCards({ isFavorite }) {
     }
 
     const handleCreateOutfit = () => {
-        setCreateOutfit(!createOutfit)
+        setCreateOutfit(true)
     }
 
     const handleRemove = (item) => {
@@ -74,6 +78,50 @@ function ClothingCards({ isFavorite }) {
             return each !== item
         }))
     }
+
+    const handleOutfitName = (e) => {
+        setOutfit({
+            ...outfit,
+            name: e.target.value
+        })
+        console.log(outfit)
+    }
+
+    const handleSaveOutfit = (e) => {
+        e.preventDefault()
+
+        if(outfit.name.length && isSelected.length){
+            setOutfit(outfit.clothes = isSelected)
+            console.log(outfit)
+            axios
+            .post(`${API}/outfits`, outfit)
+            .then((res) => {
+                console.log(res.data)
+                window.location.href = `/outfits/${res.data.id}`
+                console.log(res.data)
+            })
+        }
+
+    }
+
+
+
+    //     if(outfit.name.length && isSelected.length){
+    //         const selectedClothesIds = isSelected.map((item) => {
+    //             setOutfit(outfit.clothes = isSelected)
+    //             console.log(outfit)
+    //             axios
+    //             .post(`${API}/outfits`, outfit)
+    //             .then((res) => {
+    //                 console.log(res.data)
+    //                 window.location.href = `/outfits/${res.data.id}`
+    //                 console.log(res.data)
+                
+    //         }})
+    //     })
+    //     .catch((c) => console.warn("catch, c"));
+    // }
+
 
     // const handleCreateOutfit = () => {
     //     const selectedClothes = allClothes.filter((item) => {
@@ -116,32 +164,33 @@ function ClothingCards({ isFavorite }) {
                         value={search}
                         onChange={handleTextChange}
                         className='border-blue-800 border-solid border rounded-md px-2 mx-2'
+                        required
                     />
                     <button onClick={() => setSearch("")}>Clear Search</button>
                 </label>
-                <button
-                    onClick={handleCreateOutfit}
-                    className="bg-slate-200 border border-black border-solid rounded px-2"
-                >
-                    Create Outfit
-                </button>
-                <button
-                    onClick={() => {
-                        setCreateOutfit(false)
-                        setIsSelected([])
-                    }}
-                    className={'bg-slate-200 border border-black border-solid rounded px-2 ml-3 ' + `${createOutfit ? "inline" : "hidden"}`}
-                >
-                    Cancel
-                </button>
-                <p
-                className={createOutfit ? "inline ml-5" : "hidden"}
-                >
-                    Select items of clothing you would like to add
-                </p>
+                {
+                    createOutfit ? (
+                        <button
+                            onClick={() => {
+                                setCreateOutfit(false)
+                                setIsSelected([])
+                            }}
+                            className={'bg-slate-200 border border-black border-solid rounded px-2 ml-3 ' + `${createOutfit ? "inline" : "hidden"}`}
+                        >
+                            Cancel
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleCreateOutfit}
+                            className="bg-slate-200 border border-black border-solid rounded px-2"
+                        >
+                            Create Outfit
+                        </button>
+                    )
+                }  
             </div>
             <div className="flex">
-                <div className='flex flex-wrap my-8'>
+                <div className='flex flex-wrap my-8 float left'>
                     <div className="w-64 h-64 bg-gray-300 px-20 mx-10 mb-10">
                         <Link to='/closet/new'>
                             <div>
@@ -182,20 +231,53 @@ function ClothingCards({ isFavorite }) {
                         }) 
                     }
                 </div>
-                <div>
-                    <div className="flex flex-col w-64 right-0">
+                <aside>
+                    <div className={"flex flex-col w-96 right-0 border border-solid border-black mr-10 h-3/4 overflow-y-auto" + `${createOutfit ? "" : " hidden"}`}>
+                    <p
+                        className={createOutfit ? "text-center py-5 bg-blue-100 sticky top-0" : "hidden"}
+                     >
+                        Select items of clothing you would like to add
+                    </p>
+                    {
+                        isSelected.length ? (
+                            <>
+                                <div className="flex justify-center sticky top-10 py-5 bg-white">
+                                    <input 
+                                        type="text" 
+                                        name="name" 
+                                        placeholder="Name your outfit"
+                                        className="px-2 my-2 bg-gray-100"
+                                        onChange={handleOutfitName}
+                                        />
+                                    <button
+                                        onClick={() => {
+                                            setCreateOutfit(false)
+                                            setIsSelected([])
+                                            handleSaveOutfit()
+                                        }}
+                                        className="bg-blue-800 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3"
+                                        >
+                                        Submit
+                                    </button>
+                                </div>
+                                <p className="text-center pb-5">
+                                    <span className="text-blue-800 underline">{isSelected.length} </span> items selected
+                                </p>
+                            </>
+                        ) : null
+                    }
                         {
-                            isSelected.length > 0 ?
+                            isSelected.length ?
                             isSelected.map((item) => {
                                 return (
                                     <div 
                                         key={item.id}
-                                        className='flex items-center pb-2'
+                                        className='flex items-center justify-center pb-2 float-right'
                                     >
                                             <img 
                                                 src={item.img_url} 
                                                 alt={item.name} 
-                                                className='w-40 h-40 object-scale-down'
+                                                className='w-52 h-52 object-scale-down'
                                                 />
                                             <button 
                                                onClick={() => handleRemove(item)}
@@ -206,11 +288,11 @@ function ClothingCards({ isFavorite }) {
                                         </div>
                                     )
                                 }
-                                )
+                            )
                                 : null
                         }
                         </div>
-                </div>
+                </aside>
             </div>
         </>
     );
