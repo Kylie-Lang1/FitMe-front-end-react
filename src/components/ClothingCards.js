@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ClothingCard from "./ClothingCard";
 
 const API = process.env.REACT_APP_API_URL;
@@ -20,9 +20,16 @@ function ClothingCards({ isFavorite }) {
     const selectedStyle = "border-2 border-gray-500 drop-shadow-lg"
 
     // State for saving outfit details
+    const navigate = useNavigate();
+    const [outfitName, setOutfitName] = useState("");
     const [outfit, setOutfit] = useState({
         name: "",
-        clothes: []
+        img1_url: "",
+        img2_url: "",
+        img3_url: "",
+        img4_url: "",
+        img5_url: "",
+        img6_url: ""
     });
 
     useEffect(() => {
@@ -80,64 +87,24 @@ function ClothingCards({ isFavorite }) {
     }
 
     const handleOutfitName = (e) => {
-        setOutfit({
-            ...outfit,
-            name: e.target.value
+        setOutfit({...outfit, name: e.target.value})
+    }
+
+    const handleSaveOutfit = () => {
+        const newOutfit = {...outfit}
+        isSelected.map((item, index) => {
+            newOutfit[`img${index + 1}_url`] = item.img_url
         })
-        console.log(outfit)
-    }
-
-    const handleSaveOutfit = (e) => {
-        e.preventDefault()
-
-        if(outfit.name.length && isSelected.length){
-            setOutfit(outfit.clothes = isSelected)
-            console.log(outfit)
+        
+        if(outfit.name && isSelected.length){
             axios
-            .post(`${API}/outfits`, outfit)
-            .then((res) => {
-                console.log(res.data)
-                window.location.href = `/outfits/${res.data.id}`
-                console.log(res.data)
-            })
+             .post(`${API}/outfits`, newOutfit)
+             .then(() => navigate(`/outfits`))
+             .catch((c) => console.warn("catch, c"));
+                setCreateOutfit(false)
+                setIsSelected([])
         }
-
-    }
-
-
-
-    //     if(outfit.name.length && isSelected.length){
-    //         const selectedClothesIds = isSelected.map((item) => {
-    //             setOutfit(outfit.clothes = isSelected)
-    //             console.log(outfit)
-    //             axios
-    //             .post(`${API}/outfits`, outfit)
-    //             .then((res) => {
-    //                 console.log(res.data)
-    //                 window.location.href = `/outfits/${res.data.id}`
-    //                 console.log(res.data)
-                
-    //         }})
-    //     })
-    //     .catch((c) => console.warn("catch, c"));
-    // }
-
-
-    // const handleCreateOutfit = () => {
-    //     const selectedClothes = allClothes.filter((item) => {
-    //         return item.is_selected === true
-    //     })
-    //     const selectedClothesIds = selectedClothes.map((item) => {
-    //         return item.id
-    //     })
-    //     axios
-    //     .post(`${API}/outfits`, {clothes: selectedClothesIds})
-    //     .then((res) => {
-    //         console.log(res.data)
-    //         window.location.href = `/outfits/${res.data.id}`
-    //     })
-    //     .catch((c) => console.warn("catch, c"));
-    // }
+    };
 
     return (
         <>
@@ -239,7 +206,7 @@ function ClothingCards({ isFavorite }) {
                         Select items of clothing you would like to add
                     </p>
                     {
-                        isSelected.length ? (
+                        isSelected.length > 0 ? (
                             <>
                                 <div className="flex justify-center sticky top-10 py-5 bg-white">
                                     <input 
@@ -250,11 +217,7 @@ function ClothingCards({ isFavorite }) {
                                         onChange={handleOutfitName}
                                         />
                                     <button
-                                        onClick={() => {
-                                            setCreateOutfit(false)
-                                            setIsSelected([])
-                                            handleSaveOutfit()
-                                        }}
+                                        onClick={handleSaveOutfit}
                                         className="bg-blue-800 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3"
                                         >
                                         Submit
