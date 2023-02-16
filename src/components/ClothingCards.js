@@ -71,6 +71,12 @@ function ClothingCards({ isFavorite }) {
         setCreateOutfit(!createOutfit)
     }
 
+    const handleRemove = (item) => {
+        setIsSelected(isSelected.filter((each) => {
+            return each !== item
+        }))
+    }
+
     // const handleCreateOutfit = () => {
     //     const selectedClothes = allClothes.filter((item) => {
     //         return item.is_selected === true
@@ -186,8 +192,8 @@ function ClothingCards({ isFavorite }) {
                             isSelected.map((item) => {
                                 return (
                                     <div 
-                                    key={item.id}
-                                    className='flex items-center pb-2'
+                                        key={item.id}
+                                        className='flex items-center pb-2'
                                     >
                                             <img 
                                                 src={item.img_url} 
@@ -195,11 +201,11 @@ function ClothingCards({ isFavorite }) {
                                                 className='w-40 h-40 object-scale-down'
                                                 />
                                             <button 
-                                                onClick={() => setIsSelected(isSelected.filter((each) => {
-                                                    return each !== item
-                                                }))}
+                                               onClick={() => handleRemove(item)}
                                                 className='bg-red-400 text-white border border-red-500 border-solid rounded px-1 ml-3'
-                                                >X</button>
+                                            >
+                                                X
+                                            </button>
                                         </div>
                                     )
                                 }
