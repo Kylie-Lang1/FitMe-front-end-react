@@ -1,47 +1,21 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function ClothingCard({clothes, id, createOutfit, style, setStyle, isSelected, setIsSelected}) {
+function ClothingCard({ clothes, id, createOutfit, style, setStyle, isSelected, setIsSelected }) {
     const unselectedStyle = "border-none"
     const selectedStyle = "border-2 border-gray-500 drop-shadow-lg"
-    
-    const [thisItem, setThisItem] = useState({});
-    // const [style, setStyle] = useState("");
-    console.log(style)
-    
-    const handleSelect = () => {
-        const copyClothes = clothes
-        copyClothes.is_selected = !copyClothes.is_selected
-        
-        style === unselectedStyle ? setStyle(selectedStyle) : setStyle(unselectedStyle)
-        
-        // copyClothes.is_selected === true ? (
-        //     setStyle(selected)
-        //     if(!isSelected.includes(clothes)){
-        //         setIsSelected([...isSelected, clothes])
-        //     }
-        // ) : (
-        //     setStyle(unselected)
-        //     if(isSelected.includes(clothes)){
-        //         setIsSelected(isSelected.filter((item) => {
-        //             return item !== clothes
-        //         }))
-        //     }
-        // )
 
-        if(copyClothes.is_selected === true){
-            setStyle(selectedStyle)
-            setIsSelected([...isSelected, clothes])
-        } else {
-            setStyle(unselectedStyle)
+    const handleSelect = () => {
+
+        if(isSelected.includes(clothes)){
             setIsSelected(isSelected.filter((item) => {
                 return item !== clothes
             }))
+            setStyle(unselectedStyle)
+        } else {
+            setIsSelected([...isSelected, clothes])
+            setStyle(selectedStyle)
         }
-
-        console.log(isSelected)
-        console.log(style)
-        console.log(copyClothes)
     }
 
     return (

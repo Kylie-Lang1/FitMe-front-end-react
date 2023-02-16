@@ -16,7 +16,6 @@ function ClothingCards({ isFavorite }) {
     const [style, setStyle] = useState("");
     const unselectedStyle = "border-none"
     const selectedStyle = "border-2 border-gray-500 drop-shadow-lg"
-    console.log(isSelected)
 
     useEffect(() => {
         axios
@@ -55,7 +54,6 @@ function ClothingCards({ isFavorite }) {
         const input = e.target.value;
         console.log("typed: " + e.target.value)
         handleSearch(input)
-        console.log(shownClothes)
     }
     
     const handleSearch = (input) => {
@@ -156,7 +154,6 @@ function ClothingCards({ isFavorite }) {
                         shownClothes &&
                         shownClothes.map((item) => {
                             if(isSelected.includes(item)){ 
-                                console.log(isSelected.includes(item))
                             return (
                                 <ClothingCard 
                                     key={item.id}
