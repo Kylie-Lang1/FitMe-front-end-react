@@ -165,7 +165,7 @@ function ClothesEditForm({ clothes, setClothes, setEditForm }) {
             <img
               src={clothes.img_url}
               alt={clothes.img_url}
-              className="w-64 h-64 object-cover"
+              className="w-64 h-80 object-cover"
             />
           ) : (
             <img src="https://via.placeholder.com/150" alt="placeholder" />

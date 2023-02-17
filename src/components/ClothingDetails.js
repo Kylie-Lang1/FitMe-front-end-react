@@ -31,21 +31,21 @@ function ClothingDetails() {
 
 // handleFavorite updates the clohtes state hook and uses updateFavorite to make a put request to update the API
     const handleFavorite = () => {
-        setClothes({
-            ...clothes,
-            is_favorite: !clothes.is_favorite
-        });
-        updateFavorite();
+        const copy = { ...clothes };
+        copy.is_favorite = !copy.is_favorite;
+        
+        setClothes(copy);
+        updateFavorite(copy);
     };
 
-    const updateFavorite = () => {
+    const updateFavorite = (init) => {
         axios
-         .put(`${API}/closet/${id}`, clothes)  
+         .put(`${API}/closet/${id}`, init)  
          .then(() => navigate(`/closet/${id}`))
          .catch((c) => console.warn("catch, c"));
     };
 
-// handleDelete uses the deleteItem function and is called when the user clicks the delete button
+// handleDelete uses the deleteItem function and is called when the user clicks the delete heart
     const deleteItem = () => {
         axios
          .delete(`${API}/closet/${id}`)
@@ -54,7 +54,7 @@ function ClothingDetails() {
     };
 
     const handleDelete = () => {
-        let text = "Are you sure you want to delete?"
+        let text = "Are you sure you want to delete this from your closet?"
         if (window.confirm(text) === true) {
           deleteItem()
         }
@@ -150,7 +150,7 @@ function ClothingDetails() {
                         onClick={() => navigate(`/closet`)}
                         className='inline-flex justify-center my-1 border border-gray-500 bg-purple-400 rounded-lg'
                     >   
-                        Go Back
+                        Go Back to Closet
                     </button>
                 </div>
             </div>
