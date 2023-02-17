@@ -99,7 +99,7 @@ function ClothingCards({ isFavorite }) {
 
   const handleSaveOutfit = (e) => {
     e.preventDefault();
-    
+
     const newOutfit = { ...outfit };
     isSelected.map((item, index) => {
       newOutfit[`img${index + 1}_url`] = item.img_url;
@@ -118,7 +118,7 @@ function ClothingCards({ isFavorite }) {
   return (
     <>
         <div className="pb-5 flex flex-row">
-            <div className="float-left flex items-center justify-center">
+            <div className="float-left flex items-center justify-center w-1/4">
                 <label className="pl-10">Choose a category:</label>
                 <select onChange={handleFilter} className="text-center border-blue-700 border-b rounded-md mx-2">
                 <option value="all">All</option>
@@ -134,7 +134,7 @@ function ClothingCards({ isFavorite }) {
                 </select>
             </div>
 
-            <div className="flex grow justify-center mr-16">
+            <div className="flex grow justify-center w-2/4">
                 <label>
                 Search:
                 <input
@@ -156,7 +156,7 @@ function ClothingCards({ isFavorite }) {
                 </label>
             </div>
 
-            <div className="float-right flex items-center justify-center mr-20">
+            <div className="float-right flex items-center justify-center mr-20 w-1/4">
                 {createOutfit ? (
                     <button
                     onClick={() => {
@@ -164,7 +164,7 @@ function ClothingCards({ isFavorite }) {
                         setIsSelected([]);
                     }}
                     className={
-                        "bg-gray-300 border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 absolute right-44 top-10"
+                        "bg-gray-300 border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
                         // "bg-slate-200 border border-black border-solid rounded px-2 ml-3 " 
                         + `${createOutfit ? "inline" : "hidden"}`
                     }
@@ -175,14 +175,13 @@ function ClothingCards({ isFavorite }) {
                     <button
                     onClick={handleCreateOutfit}
                     // className="bg-slate-200 border border-black border-solid rounded px-2"
-                    className="bg-blue-700 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 absolute right-32"
+                    className="bg-blue-700 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
                     >
                     + Create Outfit
                 </button>
                 )}
             </div>
         </div>
-        <h2 className='text-xl pl-10 pt-10'>Clothes</h2>
         <div className="flex">
             <div className="flex flex-wrap my-8 float left">
 
@@ -229,7 +228,7 @@ function ClothingCards({ isFavorite }) {
             <aside>
                 <div
                     className={
-                    "flex flex-col w-96 right-0 rounded-lg shadow-2xl mr-10 h-3/4 overflow-y-auto sticky top-0" +
+                    "flex flex-col w-96 right-0 rounded-lg shadow-2xl mr-10 h-3/4 overflow-y-auto my-8" +
                     `${createOutfit ? "" : " hidden"}`
                     }
                 >

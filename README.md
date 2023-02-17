@@ -4,9 +4,8 @@ FitMe is an app that lets you add articles of clothing to the database and group
 **User Stories:** 
 
 1. A user will see an index page of clothing with the option to add individual pieces of clothing.
-1. A user will see a create outfit button that allows users to select multiple pieces of clothing and group them under a title.
+1. A user will see a create outfit button that allows users to select up to 6 different pieces of clothing and group them under a title.
 1. A user will be able to search through their virtual closet with a search bar and/or filtering by category.
-1. A user will be able to add their favorite items of clothing to a favorites section at the top of the index page.
 1. A user will be able to edit and delete items of clothing that have been added.
 
 #

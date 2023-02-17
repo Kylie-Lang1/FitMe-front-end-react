@@ -68,9 +68,9 @@ function ClothingDetails() {
                 <img
                     src={clothes.img_url}
                     alt={clothes.name}
-                    className='w-64 h-64 object-cover'
+                    className='w-64 h-80 object-cover'
                 />
-                <div className='w-96 pl-10 ml-20'>
+                <div className='w-96 pl-10 pt-8'>
                     <h1 className='font-bold text-2xl'>{clothes.name}</h1>
                     {
                         clothes.brand ? (
@@ -108,35 +108,50 @@ function ClothingDetails() {
 
                     }
                 </div>
-                <div className='flex flex-col w-64'>
+                <div className='flex flex-col w-64 ml-20 mt-10'>
                     {
                         clothes.is_favorite ?
                             <button 
                                 onClick={handleFavorite}
-                                className='inline-flex justify-center'
+                                className='inline-flex justify-center my-1 border border-gray-500 bg-purple-100 rounded-lg'
                             >
                                 <img 
                                     src={HeartSolid} 
                                     alt='favorite'
-                                    className='w-5 h-5 mr-2'
+                                    className='w-5 h-5 mr-2 mt-0.5'
                                 />
-                                <p className=''>Remove from Favorites</p>
+                                <p>Remove from Favorites</p>
                             </button> :
                                 <button 
                                     onClick={handleFavorite}
-                                    className='inline-flex justify-center'
-                                >
+                                    className='inline-flex justify-center my-1 border border-gray-500 bg-purple-100 rounded-lg'
+                                    >
                                     <img 
                                         src={HeartOutline} 
                                         alt='favorite'
                                         className='w-5 h-5 mr-2'
                                     />
-                                    <p className=''>Add to Favorites</p>
+                                    <p>Add to Favorites</p>
                                 </button>
                     }
-                    <button onClick={() => setEditForm(true)}>Edit Item</button>
-                    <button onClick={handleDelete}>Remove from Closet</button>
-                    <button onClick={() => navigate(`/closet`)}>Go Back</button>
+                    <button 
+                        onClick={() => setEditForm(true)}
+                        className='inline-flex justify-center my-1 border border-gray-500 bg-purple-200 rounded-lg'
+                    >
+                        Edit Item
+                    </button>
+                    <button 
+                        onClick={handleDelete}
+                        className='inline-flex justify-center my-1 border border-gray-500 bg-purple-300 rounded-lg'
+                    >
+                        Remove from Closet
+                    </button>
+                    <button 
+                        onClick={() => navigate(`/closet`)}
+                        className='inline-flex justify-center my-1 border border-gray-500 bg-purple-400 rounded-lg'
+                    >   
+                        Go Back
+                    </button>
                 </div>
             </div>
             {

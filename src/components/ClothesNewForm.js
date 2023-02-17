@@ -59,7 +59,7 @@ function ClothesNewForm() {
         <div className="flex justify-center space-x-10">
             <form 
                 onSubmit={handleSubmit}
-                className="flex flex-col w-96 px-20 bg-slate-200"
+                className="flex flex-col w-96 px-20 py-10 bg-slate-200 rounded-lg"
             >
                 <label htmlFor="name">
                     Name:
@@ -166,7 +166,7 @@ function ClothesNewForm() {
                         <img 
                             src={newClothes.img_url} 
                             alt={newClothes.img_url} 
-                            className="w-64 h-64 object-cover"
+                            className="w-64 h-80 object-cover"
                         /> :
                             <img src="https://via.placeholder.com/250" alt="placeholder" />
                 }
