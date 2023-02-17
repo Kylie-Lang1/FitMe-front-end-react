@@ -145,8 +145,18 @@ function ClothesEditForm({ clothes, setClothes, setEditForm }) {
             />
           </label>
 
-          <button type="submit">Submit</button>
-          <button onClick={() => setEditForm(false)}>Cancel</button>
+          <button
+            type="submit"
+            className="bg-blue-700 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
+          >
+            Submit
+          </button>
+          <button
+            onClick={() => setEditForm(false)}
+            className="bg-gray-500 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
+          >
+                Cancel
+          </button>
         </form>
         {/* <button className="justify-items-center">Add another item</button> */}
         <div>

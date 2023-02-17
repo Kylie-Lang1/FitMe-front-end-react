@@ -154,9 +154,24 @@ function ClothesNewForm() {
                     />
                 </label>
 
-                <button type="submit">Submit</button>
-                <button type="reset">Reset</button>
-                <button onClick={() => navigate(`/closet`)}>Cancel</button>
+                <button 
+                    type="submit"
+                    className="bg-blue-600 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
+                >
+                    Submit
+                </button>
+                <button 
+                    type="reset"
+                    className="bg-gray-500 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
+                >
+                    Reset
+                </button>
+                <button 
+                    onClick={() => navigate(`/closet`)}
+                    className="bg-red-400 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
+                >
+                    Cancel
+                </button>
             </form>
                 {/* <button className="justify-items-center">Add another item</button> */}
             <div className="">

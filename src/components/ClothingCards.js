@@ -165,7 +165,6 @@ function ClothingCards({ isFavorite }) {
                     }}
                     className={
                         "bg-gray-300 border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
-                        // "bg-slate-200 border border-black border-solid rounded px-2 ml-3 " 
                         + `${createOutfit ? "inline" : "hidden"}`
                     }
                     >
@@ -174,7 +173,6 @@ function ClothingCards({ isFavorite }) {
                 ) : (
                     <button
                     onClick={handleCreateOutfit}
-                    // className="bg-slate-200 border border-black border-solid rounded px-2"
                     className="bg-blue-700 text-white border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
                     >
                     + Create Outfit

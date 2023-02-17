@@ -16,7 +16,8 @@ FitMe is an app that lets you add articles of clothing to the database and group
 - `npm install` to install dependencies
 - `npm start` to start the react app on localhost:3000
 
-This app uses React and TailwindCSS on the frontend while using Express and SQL on the backend.
+This app uses React and TailwindCSS on the frontend while using Express and SQL on the backend.  Hourglass and Heart icons from Icons8.
+
 #
 **Links:**
 
