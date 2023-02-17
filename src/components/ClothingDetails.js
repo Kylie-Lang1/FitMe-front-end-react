@@ -72,14 +72,25 @@ function ClothingDetails() {
                 />
                 <div className='w-96 pl-10 ml-20'>
                     <h1 className='font-bold text-2xl'>{clothes.name}</h1>
-                    <p className='text-xl text-gray-500 pb-28'>
-                        {clothes.brand} 
-                        <span className='px-2'> | </span>
-                        {
-                            clothes.category &&
-                            clothes.category.charAt(0).toUpperCase()+clothes.category.slice(1)
-                        }
-                    </p>
+                    {
+                        clothes.brand ? (
+                            <p className='text-xl text-gray-500 pb-28'>
+                                {clothes.brand} 
+                                <span className='px-2'> | </span>
+                                {
+                                    clothes.category &&
+                                    clothes.category.charAt(0).toUpperCase()+clothes.category.slice(1)
+                                }
+                            </p>
+                        ) : (
+                            <p className='text-xl text-gray-500 pb-28'>
+                                {
+                                    clothes.category &&
+                                    clothes.category.charAt(0).toUpperCase()+clothes.category.slice(1)
+                                }
+                            </p>
+                        )
+                    }
                     {
                         clothes.is_owned ?
                             <p className='text-l'>Already owned by me</p> :

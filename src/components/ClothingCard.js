@@ -28,7 +28,7 @@ function ClothingCard({ clothes, id, createOutfit, style, setStyle, isSelected, 
                 <img 
                     src={clothes.img_url} 
                     alt={clothes.name}
-                    className={'w-64 h-64 object-cover ' + `${style}`}
+                    className={'w-64 h-80 object-cover ' + `${style}`}
                 />
                 <h1 className="w-64 font-bold truncate">{clothes.name}</h1> 
                 <p>{clothes.brand}</p>
@@ -39,7 +39,7 @@ function ClothingCard({ clothes, id, createOutfit, style, setStyle, isSelected, 
                     <img 
                         src={clothes.img_url} 
                         alt={clothes.name}
-                        className="w-64 h-64 object-cover"
+                        className="w-64 h-80 object-cover"
                     />
                     <h1 className="w-64 font-bold truncate">{clothes.name}</h1>
                     <p>{clothes.brand}</p>
