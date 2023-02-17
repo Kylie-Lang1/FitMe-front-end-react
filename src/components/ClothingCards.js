@@ -158,18 +158,19 @@ function ClothingCards({ isFavorite }) {
 
             <div className="float-right flex items-center justify-center mr-20 w-1/4">
                 {createOutfit ? (
-                    <button
-                    onClick={() => {
-                        setCreateOutfit(false);
-                        setIsSelected([]);
-                    }}
-                    className={
-                        "bg-gray-300 border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
-                        + `${createOutfit ? "inline" : "hidden"}`
-                    }
-                    >
-                    Cancel
-                </button>
+                //     <button
+                //     onClick={() => {
+                //         setCreateOutfit(false);
+                //         setIsSelected([]);
+                //     }}
+                //     className={
+                //         "bg-gray-300 border border-blue-800 border-solid rounded px-2 mt-1 h-7 ml-3 "
+                //         + `${createOutfit ? "inline" : "hidden"}`
+                //     }
+                //     >
+                //     Cancel
+                // </button>
+                null
                 ) : (
                     <button
                     onClick={handleCreateOutfit}
@@ -187,7 +188,9 @@ function ClothingCards({ isFavorite }) {
                 <Link to="/closet/new" className="w-64 h-80">
                     <div className="place-items-center text-center mt-24">
                         <span className="text-7xl drop-shadow-md">+</span>
-                        <p className="text-2xl drop-shadow-md font-semibold">Add New Item</p>
+                        <p className="text-2xl drop-shadow-md font-semibold">
+                            Add New Item
+                        </p>
                     </div>
                 </Link>
             </div>
@@ -223,18 +226,32 @@ function ClothingCards({ isFavorite }) {
                 }
                 })}
             </div>
-            <aside>
+            <aside
+                className={
+                    "w-96 right-0" +
+                    `${createOutfit ? "" : " hidden"}`
+                }
+            >
                 <div
                     className={
-                    "flex flex-col w-96 right-0 rounded-lg shadow-2xl mr-10 h-3/4 overflow-y-auto my-8" +
+                    "flex flex-col w-96 right-0 rounded-lg shadow-2xl mr-10 h-5/6 overflow-y-auto my-8 fixed top-16" +
                     `${createOutfit ? "" : " hidden"}`
                     }
                 >
                     <div className="sticky top-0">
                         <p
+                            onClick={() => {
+                                setCreateOutfit(false);
+                                setIsSelected([]);
+                            }}
+                            className="text-right pr-4 pt-3 cursor-pointer bg-blue-100 text-red-700 text-l font-semibold"
+                        >
+                            X
+                        </p>
+                        <p
                         className={
                             createOutfit
-                            ? "text-center py-5 bg-blue-100 top-0 px-5"
+                            ? "text-center pb-5 bg-blue-100 top-0 px-5"
                             : "hidden"
                         }
                         >
