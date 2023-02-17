@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import HeartSolid from '../assets/SolidHeart.png';
+import HeartOutline from '../assets/HeartOutline.png';
 
 function ClothingCard({ clothes, id, createOutfit, style, setStyle, isSelected, setIsSelected }) {
     const unselectedStyle = "border-none"
@@ -31,6 +32,22 @@ function ClothingCard({ clothes, id, createOutfit, style, setStyle, isSelected, 
                     className={'w-64 h-80 object-cover ' + `${style}`}
                 />
                 <h1 className="w-64 font-bold truncate">{clothes.name}</h1> 
+                {
+                    clothes.is_favorite ? (
+                        <img
+
+                            src={HeartSolid}
+                            alt='favorite'
+                            className='w-5 h-5 mr-2 mt-0.5'
+                        />
+                    ) : (
+                        <img
+                            src={HeartOutline}  
+                            alt='not_favorite'
+                            className='w-5 h-5 mr-2 mt-0.5'
+                        />
+                    )
+                }
                 <p>{clothes.brand}</p>
             </div>
         ) : (
@@ -42,7 +59,25 @@ function ClothingCard({ clothes, id, createOutfit, style, setStyle, isSelected, 
                         className="w-64 h-80 object-cover"
                     />
                     <h1 className="w-64 font-bold truncate">{clothes.name}</h1>
-                    <p>{clothes.brand}</p>
+                    <div className='flex w-64'>
+                        {
+                            clothes.is_favorite ? (
+                                <img
+                                
+                                src={HeartSolid}
+                                alt='favorite'
+                                className='w-5 h-5 mr-2 mt-0.5 flex-end'
+                                />
+                                ) : (
+                                    <img
+                                    src={HeartOutline}  
+                                    alt='not_favorite'
+                                    className='w-5 h-5 mr-2 mt-0.5 flex-end'
+                                    />
+                                    )
+                        }
+                        <p>{clothes.brand}</p>
+                    </div>
                 </div>
             </Link>
         )
