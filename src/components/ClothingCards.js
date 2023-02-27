@@ -196,7 +196,7 @@ function ClothingCards({ isFavorite }) {
             </div>
 
             {shownClothes &&
-                shownClothes.map((item, index) => {
+                shownClothes.map((item) => {
                 if (isSelected.includes(item)) {
                     return (
                     <ClothingCard
