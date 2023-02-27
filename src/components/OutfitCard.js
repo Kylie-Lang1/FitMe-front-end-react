@@ -28,7 +28,7 @@ function OutfitCard({ outfit, id }) {
             axios
              .delete(`${API}/outfits/${outfit.id}`)
              .then((res) => navigate("/outfits"))
-            .catch((c) => console.warn("catch, c"))
+             .catch((c) => console.warn("catch, c"))
         }
     }
 
@@ -98,7 +98,7 @@ function OutfitCard({ outfit, id }) {
                             <img
                             src={outfit.img1_url}
                             alt={outfit.name}
-                            className="w-64 h-64 object-cover inline"
+                            className="w-64 h-80 object-cover inline"
                             />
                             ) : null
                         }
@@ -107,7 +107,7 @@ function OutfitCard({ outfit, id }) {
                             <img 
                             src={outfit.img2_url} 
                             alt={outfit.name}
-                            className="w-64 h-64 object-cover inline"
+                            className="w-64 h-80 object-cover inline"
                             />
                             ) : null
                         }  
@@ -116,7 +116,7 @@ function OutfitCard({ outfit, id }) {
                             <img
                             src={outfit.img3_url}
                             alt={outfit.name}
-                            className="w-64 h-64 object-cover inline"
+                            className="w-64 h-80 object-cover inline"
                             />
                             ) : null
                         }
@@ -125,7 +125,7 @@ function OutfitCard({ outfit, id }) {
                             <img
                             src={outfit.img4_url}
                             alt={outfit.name}
-                            className="w-64 h-64 object-cover inline"
+                            className="w-64 h-80 object-cover inline"
                             />
                             ) : null
                         }
@@ -134,7 +134,7 @@ function OutfitCard({ outfit, id }) {
                             <img
                             src={outfit.img5_url}
                             alt={outfit.name}
-                            className="w-64 h-64 object-cover inline"
+                            className="w-64 h-80 object-cover inline"
                             />
                             ) : null
                         }
@@ -143,7 +143,7 @@ function OutfitCard({ outfit, id }) {
                             <img
                             src={outfit.img6_url}
                             alt={outfit.name}
-                            className="w-64 h-64 object-cover inline"
+                            className="w-64 h-80 object-cover inline"
                         />
                         ) : null
                     }

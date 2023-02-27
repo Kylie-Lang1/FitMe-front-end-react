@@ -45,7 +45,7 @@ function ClothingDetails() {
          .catch((c) => console.warn("catch, c"));
     };
 
-// handleDelete uses the deleteItem function and is called when the user clicks the delete heart
+// handleDelete uses the deleteItem function and is called when the user clicks the delete button
     const deleteItem = () => {
         axios
          .delete(`${API}/closet/${id}`)
