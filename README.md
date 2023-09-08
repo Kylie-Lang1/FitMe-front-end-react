@@ -1,5 +1,5 @@
 # FitMe App
-FitMe is an app that lets you add articles of clothing to the database and group them together to plan different outfits.  The purpose of this app is to create a virtual closet to see all of your items in one place and allow for easy outfit planning by allowing you to visualize pieces together.
+FitMe is an app that lets users add articles of clothing to the database and group them together to plan different outfits.  The purpose of this app is to create a virtual closet to see all of your items in one place and allow for easy outfit planning by allowing you to visualize pieces together.
 #
 **User Stories:** 
 
